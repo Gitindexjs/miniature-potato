@@ -4,22 +4,33 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-	Vector2 movementVector;
-	Rigidbody2D rb;
-	Vector2 m_velocity = Vector3.zero;
+	float movementAmp;
+	[SerializeField]
+	CharacterController2D controller;
+	bool jumping;
+	Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+		animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        movementVector.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        movementAmp = Input.GetAxisRaw("Horizontal");
+		if(Input.GetButtonDown("Jump")) {
+			jumping = true;
+		}
+		if(Input.GetAxisRaw("Horizontal") != 0) {
+			animator.Play("Walking", 0);
+		} else {
+			animator.Play("Idle", 0);
+		}
     }
 
 	void FixedUpdate() {
-		rb.velocity = Vector2.SmoothDamp(rb.velocity, movementVector * 2.0f, ref m_velocity, 0.05f);
+		controller.Move(movementAmp * Time.fixedDeltaTime * 10f, false, jumping);
+		jumping = false;
 	}
 }
