@@ -46,8 +46,15 @@ public class MothMovement : MonoBehaviour
 		if(chasing) {
 			Vector3 distance = player.transform.position - transform.position;
 			transform.position += distance.normalized * 0.05f;
+			changeDirection((int) (distance.x/Mathf.Abs(distance.x)));
 		}
 
+	}
+
+	void changeDirection(int direction) {
+		Vector3 theScale = transform.localScale;
+		theScale.x *= direction;
+		transform.localScale = theScale;
 	}
 
 	// void findNextLocation() {
