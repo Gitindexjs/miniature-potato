@@ -1,22 +1,27 @@
-using System.Collections;
+	using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class LeafController : MonoBehaviour
 {
-	float multiplier;
-	Vector3 originalLocation;
+	float[] multipliers;
 	float counter = 0;
+	Vector3 original;
     // Start is called before the first frame update
     void Start()
     {
-        multiplier = 0.05f;
+        multipliers = new float[2];
+		original = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+		multipliers[0] = 0.25f;
+		multipliers[1] = 2f;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        transform.position = originalLocation + new Vector3(0,0,0 );
-		counter += 0.01f;
+    void Update() {
+		Vector3 animatedPosition = new Vector3(original.x - multipliers[0] * Mathf.Cos(counter), original.y + Mathf.Cos(counter *multipliers[1] ) / 20f, original.z);
+		transform.position = animatedPosition;  
+
+		counter+=0.001f;
     }
 }

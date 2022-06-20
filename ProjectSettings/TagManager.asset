@@ -16,7 +16,7 @@ TagManager:
   - ground
   - interactable
   - 
-  - 
+  - clouds
   - background
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: background
     uniqueID: 3967409893
+    locked: 0
+  - name: clouds
+    uniqueID: 3761627275
     locked: 0
   - name: leaves
     uniqueID: 3972484379
