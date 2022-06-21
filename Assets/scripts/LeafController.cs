@@ -1,10 +1,11 @@
-	using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class LeafController : MonoBehaviour
 {
+	LeaveManager leafManager;
 	float[] multipliers;
 	float counter = 0;
 	Vector3 original;
@@ -15,6 +16,14 @@ public class LeafController : MonoBehaviour
 		original = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 		multipliers[0] = 0.25f;
 		multipliers[1] = 2f;
+		leafManager = GameObject.Find("Leaves").GetComponent<LeaveManager>();
+		leafManager.changedLocation.AddListener((string tag, float oldLocation, float newLocation) => {
+			string parentTag = gameObject.transform.parent.gameObject.tag; 
+			if(parentTag == tag) {
+				original += new Vector3(newLocation - oldLocation, 0, 0);
+
+			};
+		});
     }
 
     // Update is called once per frame

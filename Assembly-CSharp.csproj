@@ -47,9 +47,11 @@
      <Compile Include="Assets\scripts\Interactions.cs" />
      <Compile Include="Assets\scripts\PlayerMovement.cs" />
      <Compile Include="Assets\scripts\InteractableMovement.cs" />
-     <Compile Include="Assets\scripts\LeafController.cs" />
      <Compile Include="Assets\scripts\CloudController.cs" />
+     <Compile Include="Assets\scripts\LeafController.cs" />
      <Compile Include="Assets\scripts\MenuManager.cs" />
+     <Compile Include="Assets\scripts\LeaveManager.cs" />
+     <Compile Include="Assets\scripts\PlayerHealth.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

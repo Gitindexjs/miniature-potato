@@ -12,20 +12,24 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] float runningSpeed;
 	[SerializeField] Transform ground;
 	bool jumping;
-	Animator animator;
+	[SerializeField] Animator animator;
 	float movementSpeed;
 	bool jumpingAnimation;
 	[System.NonSerialized] public UnityEvent<string> animationStart;
 	[System.NonSerialized] public UnityEvent<string> animationEnd;
+	// private void OnDrawGizmosSelected() {
+
+	// 	animator.Play("Running", 0);
+	// }
 
     // Start is called before the first frame update
     void Start()
     {
-		animator = GetComponent<Animator>();
 		animationStart = new UnityEvent<string>();
 		animationEnd = new UnityEvent<string>();
 		movementSpeed = 10f;
 		jumpingAnimation = false;
+		// aded
     }
 
     // Update is called once per frame
@@ -44,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
 				}
 			} else {
 				animator.Play("Idle", 0);
-				animationStart.Invoke("Idle");
 			}
 		}
 		if(Input.GetButtonDown("Jump")) {

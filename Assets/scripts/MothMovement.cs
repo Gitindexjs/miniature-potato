@@ -5,7 +5,10 @@ using UnityEngine.AI;
 
 public class MothMovement : MonoBehaviour
 {
-	[SerializeField] Transform player;
+	GameObject player;
+	Transform playerTrans;
+	[SerializeField] Animator animator;
+	PlayerHealth playerHealth;
 	Renderer mothRenderer;
 	// [SerializeField] NavMeshAgent agent;
 
@@ -15,9 +18,12 @@ public class MothMovement : MonoBehaviour
 	bool chasing;
 
 	bool previouslySeen;
+	float nextAttackTime;
 
 	void Start() {
+		player = GameObject.Find("player");
 		mothRenderer = GetComponent<Renderer>();
+		playerHealth = player.GetComponent<PlayerHealth>();
 		chasing = false;
 	}
 
@@ -29,6 +35,7 @@ public class MothMovement : MonoBehaviour
 		}
 		if(mothRenderer.isVisible) {
 			chasing = true;
+			animator.Play("Chasing", 0);
 			previouslySeen = true;
 		}
         // if(!nextLocationCreated) findNextLocation();
@@ -43,6 +50,20 @@ public class MothMovement : MonoBehaviour
     }
 
 	void FixedUpdate() {
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+		for(int i = 0; i < colliders.Length; i++) {
+			if(colliders[i].gameObject.name == "player") {
+				if(Time.time > nextAttackTime) {
+					playerHealth.health --;
+					nextAttackTime = Time.time + 2;
+					Debug.Log(playerHealth.health);
+					if(playerHealth.health == 0) {
+						Debug.Log("dead");
+					}
+
+				}
+			};
+		}
 		if(chasing) {
 			Vector3 distance = player.transform.position - transform.position;
 			transform.position += distance.normalized * 0.05f;
@@ -53,7 +74,7 @@ public class MothMovement : MonoBehaviour
 
 	void changeDirection(int direction) {
 		Vector3 theScale = transform.localScale;
-		theScale.x *= direction;
+		theScale.x = direction;
 		transform.localScale = theScale;
 	}
 

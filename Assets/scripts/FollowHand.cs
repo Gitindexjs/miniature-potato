@@ -9,8 +9,7 @@ public class FollowHand : MonoBehaviour {
 	}
 	void onAnimation(string animation){
 		if(gameObject.activeSelf) {
-			// animator.Play("animation", 0);
-
+			animator.Play("net" + animation, 0);
 		}
 	}
 	void onAnimationEnd(string animation) {

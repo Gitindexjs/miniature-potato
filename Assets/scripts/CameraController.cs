@@ -5,27 +5,32 @@ using UnityEngine.Events;
 
 public class CameraController : MonoBehaviour
 {
+	float previousX;
 	[SerializeField] Transform player;
+	public UnityEvent<float, float> cameraChange;
 	// [System.NonSerialized] public UnityEvent cameraChange;
 	// Vector3 previous;
     // Start is called before the first frame update
     void Awake()
     {
-		// cameraChange = new UnityEvent();
-		// previous = new Vector3();
+		cameraChange = new UnityEvent<float, float>();
+		previousX = -transform.position.x;
     }
 
     // Update is called once per frame
     void Update()
     {
-		// previous = transform.position;
-        // transform.position = new Vector3(Mathf.Round(player.position.x / 19.2f) * 19.2f, Mathf.Round(player.position.y / 10.8f) * 10.8f, transform.position.z);
-		// if(transform.position != previous) {
-		// 	cameraChange.Invoke();
-		// }
 		Vector3 pos = player.transform.position;
 		pos.z = transform.position.z;
 		pos.y = transform.position.y;
 		transform.position = pos;
+		if(magicBox(previousX) != magicBox(pos.x)) {
+			cameraChange.Invoke(magicBox(previousX), magicBox(pos.x));
+		}
+		previousX = pos.x;
     }
+	
+	float magicBox (float position) {
+		return Mathf.Round(position / 19.2f) * 19.2f;
+	}
 }
