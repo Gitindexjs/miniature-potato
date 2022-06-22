@@ -24,6 +24,7 @@ public class Attack : MonoBehaviour {
 		if(attacking) {
 			Collider2D[] colliders = Physics2D.OverlapCircleAll(netTrans.position, 4f);
 			for(int i = 0; i < colliders.Length; i++) {
+				Debug.Log(colliders[i].name);
 				if(colliders[i].tag == "Enemy") {
 					colliders[i].gameObject.SetActive(false);
 				};

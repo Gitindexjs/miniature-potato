@@ -11,9 +11,12 @@ public class Interactions : MonoBehaviour {
 	[SerializeField] float interaction_radius;
 	[SerializeField] LayerMask interactables;
 	[SerializeField]Transform interactionCheck;
+	[SerializeField] Sprite[] papersSprites;
 	// [SerializeField] RectTransform interactionPrompt;
 	// [SerializeField] CameraController cameraController;
-	[SerializeField] TMP_Text papersCollectedDisplay;
+	[SerializeField] Image papersCollectedDisplay;
+	[SerializeField] GameObject[] paperObjs;
+	[SerializeField] Transform desiredLocation;
 	UnityEvent<string> onInteractCollide;
 	UnityEvent<string> onInteractUncollide;
 	[System.NonSerialized] public List<string> closeInteractables;
@@ -33,32 +36,36 @@ public class Interactions : MonoBehaviour {
 		List<string> returnedColliders = closeInteractables.ToList();
 		for (int i = 0; i < colliders.Length; i++)
 		{
-			// if new collision is not collected in list
-			if(closeInteractables.Find(x => colliders[i].gameObject.name == x) == null) {
-				onInteractCollide.Invoke(colliders[i].gameObject.name);
+			// // if new collision is not collected in list
+			// if(closeInteractables.Find(x => colliders[i].gameObject.name == x) == null) {
+			// 	onInteractCollide.Invoke(colliders[i].gameObject.name);
 
-			}
-			// if it is in the collisions then remove it from hitlist - if still colliding dont remove
-			if(closeInteractables.Find(x => colliders[i].gameObject.name == x) != null) {
-				returnedColliders.Remove(colliders[i].gameObject.name);
-			}
+			// }
+			// // if it is in the collisions then remove it from hitlist - if still colliding dont remove
+			// if(closeInteractables.Find(x => colliders[i].gameObject.name == x) != null) {
+			// 	returnedColliders.Remove(colliders[i].gameObject.name);
+			// }
+			onInteractCollide.Invoke(colliders[i].gameObject.name);
 			
 		}
 		foreach(string leftInteraction in returnedColliders) {
 			onInteractUncollide.Invoke(leftInteraction);
 		}
-		if(Input.GetButtonDown("Interact")) {
-			if(closeInteractables.Count != 0) {
-				GameObject.Find(closeInteractables[0]).SetActive(false);
-				papers++;
-				papersCollectedDisplay.text = "Papers " + papers + "/5";
-				if(papers == 5) {
-					Debug.Log("Collected all papers");
+		// if(Input.GetButtonDown("Interact")) {
+		// 	if(closeInteractables.Count != 0) {
+		// 		if(papers == 0) {
+					
+		// 		}
+		// 		GameObject.Find(closeInteractables[0]).SetActive(false);
+		// 		papers++;
+		// 		papersCollectedDisplay.text = "Papers " + papers + "/5";
+		// 		if(papers == 5) {
+		// 			Debug.Log("Collected all papers");
 
-					// cool shiz
-				}
-			}
-		}
+		// 			// cool shiz
+		// 		}
+		// 	}
+		// }
 
 		
 	}
@@ -69,7 +76,19 @@ public class Interactions : MonoBehaviour {
 		// 	interactionPrompt.gameObject.SetActive(true);
 
 		// }
-		closeInteractables.Add(name);
+
+		// closeInteractables.Add(name);
+		if(papers == 0) {
+			papersCollectedDisplay.gameObject.SetActive(true);
+			for(int i =0; i < paperObjs.Length; i++) {
+				paperObjs[i].SetActive(true);
+			}
+			
+			// popup show all other papers
+		}
+		papersCollectedDisplay.sprite = papersSprites[papers];
+		papers++;
+		GameObject.Find(name).SetActive(false);
 	}
 	void interactionExit(string name) {
 		closeInteractables.Remove(name);
