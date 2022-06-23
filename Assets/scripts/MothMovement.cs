@@ -50,16 +50,12 @@ public class MothMovement : MonoBehaviour
     }
 
 	void FixedUpdate() {
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.5f);
 		for(int i = 0; i < colliders.Length; i++) {
 			if(colliders[i].gameObject.name == "player") {
 				if(Time.time > nextAttackTime) {
 					playerHealth.health --;
 					nextAttackTime = Time.time + 2;
-					Debug.Log(playerHealth.health);
-					if(playerHealth.health == 0) {
-						Debug.Log("dead");
-					}
 
 				}
 			};

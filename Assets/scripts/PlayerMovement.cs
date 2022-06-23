@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
 	CharacterController2D controller;
 	[SerializeField] float walkingSpeed;
 	[SerializeField] float runningSpeed;
-	[SerializeField] Transform ground;
 	bool jumping;
 	[SerializeField] Animator animator;
 	float movementSpeed;
@@ -36,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         movementAmp = Input.GetAxisRaw("Horizontal");
-		
 		if(controller.m_Grounded && !jumpingAnimation) {
 			if(Input.GetAxisRaw("Horizontal") != 0) {
 				if(Input.GetButton("Run")) {
@@ -63,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
 					movementSpeed = walkingSpeed;
 				}
 		}
-		ground.position = new Vector3(Mathf.Round(transform.position.x/ 19.2f)*19.2f , ground.position.y, ground.position.z);
     }
 
 	void FixedUpdate() {

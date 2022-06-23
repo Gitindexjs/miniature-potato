@@ -36,9 +36,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\FollowHand.cs" />
      <Compile Include="Assets\scripts\OnEndAttack.cs" />
      <Compile Include="Assets\scripts\BackgroundManager.cs" />
+     <Compile Include="Assets\scripts\LeaveManager.cs" />
      <Compile Include="Assets\scripts\CameraController.cs" />
      <Compile Include="Assets\scripts\Attack.cs" />
      <Compile Include="Assets\scripts\MothSpawning.cs" />
@@ -50,8 +50,11 @@
      <Compile Include="Assets\scripts\CloudController.cs" />
      <Compile Include="Assets\scripts\LeafController.cs" />
      <Compile Include="Assets\scripts\MenuManager.cs" />
-     <Compile Include="Assets\scripts\LeaveManager.cs" />
      <Compile Include="Assets\scripts\PlayerHealth.cs" />
+     <Compile Include="Assets\scripts\GrassMovement.cs" />
+     <Compile Include="Assets\scripts\GroundController.cs" />
+     <Compile Include="Assets\scripts\WalkingCloudMovement.cs" />
+     <Compile Include="Assets\scripts\SpiritInteract.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

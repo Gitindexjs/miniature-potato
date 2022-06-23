@@ -1,10 +1,13 @@
 using System.ComponentModel;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class MothSpawning : MonoBehaviour {
 	[SerializeField] int spawnInterval;
 	[SerializeField] GameObject mothPrefab;
+	[SerializeField] CameraController controller;
+	[SerializeField] bool horizontal;
 	long counter = 0;
 	private void Start() {
 		// var task = Task.Run(async () => {
@@ -15,11 +18,26 @@ public class MothSpawning : MonoBehaviour {
 		// 		await Task.Delay(spawnInterval);
 		// 	}
 		// });
+		if(horizontal) {
+		controller.cameraChange.AddListener((float oldLoc, float newLoc) => {
+			transform.position = new Vector3(newLoc, transform.position.y, transform.position.z);
+		});
+		}
+	}
+	private void Update() {
+		if(!horizontal) {
+		transform.position = new Vector3(0, controller.transform.position.y + 5, 0);
+		}
 	}
 	private void FixedUpdate() {
-		if(counter % 500 == 0) {
-			GameObject clone = Instantiate(mothPrefab, transform.position, Quaternion.identity);
-			clone.transform.position += new Vector3(1, 5, 0);
+		if(counter % 250 == 0) {
+			if(horizontal) {
+				GameObject clone = Instantiate(mothPrefab, transform.position, Quaternion.identity);
+				clone.transform.position += new Vector3(0, 5, 0);
+
+			} else {
+				Instantiate(mothPrefab, transform.position, Quaternion.identity);
+			}
 		}
 		counter++;
 	}
