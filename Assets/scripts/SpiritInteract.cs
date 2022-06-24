@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class SpiritInteract : MonoBehaviour
 {
    	[SerializeField] float interaction_radius;
 	[SerializeField] LayerMask interactables;
 	[SerializeField]Transform interactionCheck;
-	bool spirit;
+	[SerializeField] VideoPlayer videoPlayer;
+	[SerializeField] RawImage videoOut;
+	public bool spirit;
 	#region Events
 	UnityEvent<string> onInteractCollide;
 	UnityEvent<string> onInteractUncollide;
@@ -37,10 +41,9 @@ public class SpiritInteract : MonoBehaviour
 		
 	}
 	void interactionApproach(string name) {
-		spirit = true;
 		GameObject.Find(name).SetActive(false);
-		Debug.Log("ggs");
-		Time.timeScale = 0;
+		spirit = true;
+		
 	}
 	void interactionExit(string name) {
 	}

@@ -6,13 +6,32 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[System.Serializable]
+struct Offset {
+	public float x;
+	public float y;
+}
+
 public class PlayerHealth : MonoBehaviour {
-	public int health = 10;
-	[SerializeField] GameObject[] hearts;
+	public int health;
+	[SerializeField] Offset heartOffset;
+	[SerializeField] float heartSpacing;
+	public int capacity;
+	[SerializeField] Transform heartParent;
+	[SerializeField] GameObject heartDuple;
+	private GameObject[] hearts;
+
 	[SerializeField] Image blackImage;
 	public UnityEvent death;
 	Vector3 originalLocation;
 	private void Start() {
+		health = capacity;
+		hearts = new GameObject[capacity];
+		for(int i = 0; i < capacity/2; i++){
+			hearts[i] = Instantiate(heartDuple);
+			hearts[i].transform.SetParent(heartParent);
+			hearts[i].transform.position = new Vector3(heartSpacing * i + heartOffset.x, heartOffset.y, 0);
+		}
 		originalLocation = transform.position;
 		death = new UnityEvent();
 	}
@@ -25,11 +44,19 @@ public class PlayerHealth : MonoBehaviour {
 			// transform.position = originalLocation;
 			StartCoroutine(fade());
 		}
-		for(int i = 0; i < health; i++) {
-			hearts[i].SetActive(true);
+
+		
+
+		for(int i = 0; -1 < i && i < health; i++) {
+
+			GameObject fullHeart = hearts[Mathf.FloorToInt(i/2)];
+			Transform side = fullHeart.transform.GetChild(i % 2);
+			side.gameObject.SetActive(true);
 		}
-		for(int i = health; -1 < i && i < 10; i++) {
-			hearts[i].SetActive(false);
+		for(int i = health;-1 < i &&  i < 10; i++) {
+			GameObject fullHeart = hearts[Mathf.FloorToInt(i/2)];
+			Transform side = fullHeart.transform.GetChild(i % 2);
+			side.gameObject.SetActive(false);
 		}
 	}
 	IEnumerator fade() {

@@ -8,6 +8,7 @@ public class MothMovement : MonoBehaviour
 	GameObject player;
 	Transform playerTrans;
 	[SerializeField] Animator animator;
+	[SerializeField] bool moth;
 	PlayerHealth playerHealth;
 	Renderer mothRenderer;
 	// [SerializeField] NavMeshAgent agent;
@@ -35,7 +36,10 @@ public class MothMovement : MonoBehaviour
 		}
 		if(mothRenderer.isVisible) {
 			chasing = true;
-			animator.Play("Chasing", 0);
+			if(moth) {
+				animator.Play("Chasing", 0);
+
+			}
 			previouslySeen = true;
 		}
         // if(!nextLocationCreated) findNextLocation();

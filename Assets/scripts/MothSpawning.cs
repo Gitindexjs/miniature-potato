@@ -30,7 +30,7 @@ public class MothSpawning : MonoBehaviour {
 		}
 	}
 	private void FixedUpdate() {
-		if(counter % 250 == 0) {
+		if(counter % spawnInterval == 0) {
 			if(horizontal) {
 				GameObject clone = Instantiate(mothPrefab, transform.position, Quaternion.identity);
 				clone.transform.position += new Vector3(0, 5, 0);

@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
 				animator.Play("Idle", 0);
 			}
 		}
-		if(Input.GetButtonDown("Jump")) {
+		if(Input.GetButtonDown("Jump") && controller.m_Grounded) {
 			jumping = true;
 			jumpingAnimation = true;
 			animator.Play("Jumping", 0);
